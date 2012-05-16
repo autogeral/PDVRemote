@@ -194,4 +194,20 @@ public class PDVSocketClient {
             }
         }
     }
+
+    public int getUltimoCupom() {
+        startUpClientConnection();
+        int ultimoCupom = 0;
+        try {
+            enviaTipoDeOperacaoASerRealizada(TipoDeOperacaoEnum.OBTER_NUMERO_ULTIMO_CUPOM);
+            ultimoCupom = dis.readInt();
+            System.out.println("getUltimoCupom em PDVSocketClient: ecfSerial: " + ultimoCupom);
+            System.out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            shutDownClientConnection();
+        }
+        return ultimoCupom;
+    }
 }
