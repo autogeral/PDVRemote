@@ -6,7 +6,7 @@ package br.com.jcomputacao.pdvremote.netlogic;
  */
 public enum TipoDeOperacaoEnum {
 
-    EMITIR_CUPOM(1), LEITURA_X(2), REDUCAO_Z(3), OBTER_NUMERO_SERIE(4), GERAR_RELATORIO_SINTEGRA(5);
+    EMITIR_CUPOM(1), LEITURA_X(2), REDUCAO_Z(3), OBTER_NUMERO_SERIE(4), GERAR_RELATORIO_SINTEGRA(5), OBTER_NUMERO_ULTIMO_CUPOM(6);
     private final int valor;
 
     TipoDeOperacaoEnum(int valor) {
