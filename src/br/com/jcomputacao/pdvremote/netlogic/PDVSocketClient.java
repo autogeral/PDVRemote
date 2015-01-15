@@ -91,7 +91,7 @@ public class PDVSocketClient {
         return re;
     }
 
-    public String getEcfSerial() {
+    public String getEcfSerial() throws IOException {
         startUpClientConnection();
         String ecfSerial = "";
         try {
@@ -99,8 +99,6 @@ public class PDVSocketClient {
             ecfSerial = dis.readUTF();
             System.out.println("getEcfSerial em PDVSocketClient: ecfSerial: " + ecfSerial);
             System.out.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             shutDownClientConnection();
         }
@@ -155,47 +153,41 @@ public class PDVSocketClient {
         }
     }
 
-    public void leituraX(){
+    public boolean leituraX() throws IOException {
+        boolean result = false;
         startUpClientConnection();
         try {
             enviaTipoDeOperacaoASerRealizada(TipoDeOperacaoEnum.LEITURA_X);
-        } catch (IOException ex) {
-            Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
+            result = true;
         }finally{
             shutDownClientConnection();
         }
+        return result;
     }
 
-    public void reducaoZ(){
+    public boolean reducaoZ() throws IOException {
+        boolean result = false;
         startUpClientConnection();
         try {
             enviaTipoDeOperacaoASerRealizada(TipoDeOperacaoEnum.REDUCAO_Z);
-        } catch (IOException ex) {
-            Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
+            result = true;
         }finally{
             shutDownClientConnection();
         }
+        return result;
     }
 
-    private void shutDownClientConnection() {
-        if(dos!=null){
-            try {
-                dos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    private void shutDownClientConnection() throws IOException {
+        if (dos != null) {
+            dos.close();
         }
 
-        if(dis!=null){
-            try {
-                dis.close();
-            } catch (IOException ex) {
-                Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (dis != null) {
+            dis.close();
         }
     }
 
-    public int getUltimoCupom() {
+    public int getUltimoCupom() throws IOException {
         startUpClientConnection();
         int ultimoCupom = 0;
         try {
@@ -203,8 +195,6 @@ public class PDVSocketClient {
             ultimoCupom = dis.readInt();
             System.out.println("getUltimoCupom em PDVSocketClient: ecfSerial: " + ultimoCupom);
             System.out.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(PDVSocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             shutDownClientConnection();
         }
